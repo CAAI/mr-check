@@ -1,0 +1,13 @@
+{
+  "python.pythonPath": "/homes/pmcd/venv/mr-check/bin/python",
+ "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+ },
+ "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+ },
+ "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"vetur.format.defaultFormatter.js": "prettier-eslint",
+}
