@@ -1,0 +1,24 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "build",
+			"path": "web/mrcheck/",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: build - web/mrcheck",
+			"detail": "ng build"
+		},
+		{
+			"type": "npm",
+			"script": "start",
+			"path": "web/mrcheck/",
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"label": "npm: start - web/mrcheck",
+			"detail": "ng serve"
+		}
+	]
+}
