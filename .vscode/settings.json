@@ -8,5 +8,5 @@
  "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
 },
-"python.pythonPath": "/homes/pmcd/venv/mr-check/bin/python",
+"python.pythonPath": "/usr/bin/python3",
 }
