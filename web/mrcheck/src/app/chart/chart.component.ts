@@ -18,71 +18,76 @@ export class ChartComponent implements OnInit, AfterViewInit {
   data: number[];
   bgColors: String[];
   borderColors: String[];
-  finalData: Object[];
+  datasets: Chart.ChartDataSets[];
 
   constructor() {
-    this.labels = ['BJP', 'INC', 'AAP', 'CPI', 'CPI-M', 'NCP'];
-    this.data = [200, 50, 30, 15, 20, 34];
-    this.bgColors = [
-      'rgba(255, 99, 132, 0.2)',
-      'rgba(54, 162, 235, 0.2)',
-      'rgba(255, 206, 86, 0.2)',
-      'rgba(75, 192, 192, 0.2)',
-      'rgba(153, 102, 255, 0.2)',
-      'rgba(255, 159, 64, 0.2)',
-    ];
-    this.borderColors = [
-      'rgba(255,99,132,1)',
-      'rgba(54, 162, 235, 1)',
-      'rgba(255, 206, 86, 1)',
-      'rgba(75, 192, 192, 1)',
-      'rgba(153, 102, 255, 1)',
-      'rgba(255, 159, 64, 1)',
-    ];
-    this.finalData = [];
-    for (var i = 0; i < this.data.length; i++) {
-      this.finalData.push({
-        
-        y: this.data[i],
-        x: this.labels[i],
-        backgroundColor: this.bgColors[i],
-      });
-    }
-    console.log(this.finalData);
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    this.labels = [...Array(100).keys()].map(
+      () =>
+        chars.charAt(Math.random() * chars.length) +
+        chars.charAt(Math.random() * chars.length) +
+        chars.charAt(Math.random() * chars.length)
+    );
+    this.data = [...Array(100).keys()].map(() => Math.random());
+
+    var movingMean = this.data.map(
+      (_, i) => this.data.slice(0, i + 1).reduce((a, b) => a + b, 0) / (i + 1)
+    );
+    this.datasets = [];
+
+    this.datasets.push({
+      label: '# of Votes',
+      data: this.data.map((v, i) => ({ y: v, x: this.labels[i] })),
+      borderWidth: 1,
+      type: 'scatter',
+      backgroundColor: 'rgb(0,0,0)',
+    });
+    this.datasets.push({
+      label: 'Running average',
+      data: movingMean,
+      borderWidth: 1,
+      type: 'line',
+      fill: false,
+    });
   }
 
   ngOnInit(): void {}
   ngAfterViewInit(): void {
-    console.log('charting');
     this.barChart = new Chart(this.barCanvas.nativeElement.id, {
-      type: 'bar',
-      
+      type: 'line',
+
       data: {
         labels: this.labels,
-        datasets: [
-          {
-            label: '# of Votes',
-            data: this.finalData,
-            borderWidth: 1,
-            
-          },
-        ],
+        datasets: this.datasets,
       },
       options: {
-
+        showLines:true,
+        responsive: true,
+        title: {
+          display: true,
+          text: 'Chart.js Scatter Chart - Multi Axis',
+        },
         scales: {
-          yAxes: [
+          xAxes: [
             {
-              ticks: {
-                beginAtZero: true,
+              position: 'bottom',
+              gridLines: {
+                zeroLineColor: 'rgba(0,0,0,1)',
               },
             },
           ],
-        },
-        onClick: function (c, i) {
-          console.log(c, i);
+          yAxes: [
+            {
+              type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+              display: true,
+              position: 'left',
+              id: 'y-axis-1',
+            },
+          ],
         },
       },
     });
   }
 }
+// https://jsfiddle.net/qLhojncy/
+// http://jsfiddle.net/Em4Xu/1/
