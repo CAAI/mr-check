@@ -4,4 +4,4 @@ from django.db import models
 class EntryPoint(models.Model):
   value = models.FloatField()
   date = models.DateTimeField()
-  scan = models.ImageField()
+  scan = models.ImageField(upload_to="pics")

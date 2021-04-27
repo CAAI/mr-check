@@ -55,13 +55,23 @@ export class ChartComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.barChart = new Chart(this.barCanvas.nativeElement.id, {
       type: 'line',
-
       data: {
         labels: this.labels,
         datasets: this.datasets,
       },
       options: {
-        showLines:true,
+        tooltips: {
+          enabled: true,
+          //@ts-ignore
+          yAlign: 'bottom',
+          xAlign: "center",
+          callbacks: {
+            label(tooltipItems, data) {
+              return (<number>tooltipItems.yLabel).toFixed(2);
+            },
+          },
+        },
+        showLines: true,
         responsive: true,
         title: {
           display: true,
@@ -78,7 +88,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
           ],
           yAxes: [
             {
-              type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+              type: 'linear',
               display: true,
               position: 'left',
               id: 'y-axis-1',

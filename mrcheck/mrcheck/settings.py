@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'graphene_django',
-    'charts.apps.ChartsConfig'
+    'charts.apps.ChartsConfig',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -120,7 +120,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+MEDIA_ROOT = "/homes/pmcd/mr-check/mrcheck/"
+MEDIA_URL = "/media/"
 GRAPHENE = {
     "SCHEMA": "mrcheck.schema.schema"
 }
